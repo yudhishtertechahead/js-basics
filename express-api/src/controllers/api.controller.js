@@ -29,7 +29,9 @@ const getUsers = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const data = await jsonPlaceholderService.getPaginatedPosts();
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
+    const data = await jsonPlaceholderService.getPaginatedPosts(page, limit);
     res.json({
       success: true,
       message: 'Posts fetched successfully',

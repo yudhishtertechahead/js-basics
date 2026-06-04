@@ -38,18 +38,12 @@ const getUsersSimultaneously = async () => {
   }
 };
 
-const getPaginatedPosts = async () => {
-  console.log('--- Fetching Paginated Posts (Pages 1 to 5) ---');
-  const allPosts = [];
+const getPaginatedPosts = async (page = 1, limit = 10) => {
+  console.log(`--- Fetching Paginated Posts (Page ${page}, Limit ${limit}) ---`);
   try {
-    for (let page = 1; page <= 5; page++) {
-      console.log(`Fetching page ${page}...`);
-      const posts = await fetchWithRetry(`${BASE_URL}/posts?_page=${page}&_limit=10`);
-      console.log(posts);
-      allPosts.push(...posts);
-    }
-    console.log(`Successfully fetched a total of ${allPosts.length} posts.`);
-    return allPosts;
+    const posts = await fetchWithRetry(`${BASE_URL}/posts?_page=${page}&_limit=${limit}`);
+    console.log(`Successfully fetched ${posts.length} posts for page ${page}.`);
+    return posts;
   } catch (error) {
     console.error('Error in getPaginatedPosts:', error);
     throw error;
