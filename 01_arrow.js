@@ -766,7 +766,6 @@ async function func() {
     for (let page = 1; page <= 5; page++) {
       console.log(`Fetching page ${page}...`);
 
-      // Construct the URL with pagination query parameters
       const url = `${baseUrl}?_page=${page}&_limit=${itemsPerPage}`;
       
       const response = await fetch(url);
@@ -777,20 +776,15 @@ async function func() {
 
       const pageData = await response.json();
       
-      // Merge this page's items into our main results array
-      allData = allData.concat(pageData);
+      allData.push(pageData);
     }
 
-    console.log(" All pages fetched successfully!");
-    console.log(`Total items collected: ${allData.length}`);
-    console.log("Sample data (First 2 items):", allData.slice(0, 2));
     
-    return allData;
+    console.log(allData);
 
   } catch (error) {
     console.error("Pagination stopped due to an error:", error);
   }
 }
 
-// Execute the function
 func();
