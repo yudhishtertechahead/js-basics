@@ -2,10 +2,11 @@ const jsonPlaceholderService = require('../services/jsonplaceholder.service');
 
 const getTodos = async (req, res) => {
   try {
-    const data = await jsonPlaceholderService.getCompletedTodos();
+    const userId = req.query.userId || 1;
+    const data = await jsonPlaceholderService.getCompletedTodos(userId);
     res.json({
       success: true,
-      message: 'Todos fetched successfully',
+      message: `Todos fetched successfully for user ${userId}`,
       data
     });
   } catch (error) {

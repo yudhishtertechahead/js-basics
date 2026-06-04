@@ -2,10 +2,10 @@ const { fetchWithRetry } = require('../utils/fetchWithRetry');
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
-const getCompletedTodos = async () => {
-  console.log('--- Fetching Todos for User 1 ---');
+const getCompletedTodos = async (userId = 1) => {
+  console.log(`--- Fetching Todos for User ${userId} ---`);
   try {
-    const todos = await fetchWithRetry(`${BASE_URL}/todos?userId=1`);
+    const todos = await fetchWithRetry(`${BASE_URL}/todos?userId=${userId}`);
     const completedTodos = todos.filter(todo => todo.completed);
     console.log(`Total todos fetched: ${todos.length}`);
     console.log(`Completed todos: ${completedTodos.length}`);
